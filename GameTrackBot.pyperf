@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<ProfilingTarget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectTarget>
-    <TargetProject>a2b5fef1-0aec-44ed-adea-67316dd5835b</TargetProject>
-    <FriendlyName>GameTrackBot</FriendlyName>
-  </ProjectTarget>
-  <UseVTune>false</UseVTune>
-</ProfilingTarget>
