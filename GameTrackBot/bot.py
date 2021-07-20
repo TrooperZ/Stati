@@ -20,6 +20,7 @@ load_dotenv() # get tokens stored in .env
 
 bot = commands.Bot(command_prefix="g/", intents=discord.Intents.all(), help_command=PrettyHelp())
 bot.trackerapi = os.getenv("TRACKER_API")
+bot.developer = bot.fetch_user(390841378277425153)
 ButtonsMenu.initialize(bot)
 bot.help_command = PrettyHelp(color=0x220901, active=120) # specialized help command
 

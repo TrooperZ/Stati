@@ -23,6 +23,7 @@ class R6(commands.Cog):
     """Rainbow Six Siege stats"""   
     def __init__(self, bot):
         self.bot = bot
+        self.bot.developer = bot.developer
 
     @commands.command()
     async def r6stats(self, ctx, user: str, platform="pc", info="default"):
@@ -51,8 +52,10 @@ class R6(commands.Cog):
 
                 try:
                     username = datageneral['username']
-                except:
+                except Exception as e:
+                    await self.bot.developer.send(f"An error occured when a user ran `g/r6stats`: {e}")
                     return await ctx.send("User not found. Check the name and verify that you are using the correct platform (PC is default platform)")
+                    
 
                 lvl = datageneral['progression']['level']
                 xp = datageneral['progression']['total_xp']
