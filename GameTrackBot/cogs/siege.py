@@ -67,7 +67,7 @@ class R6(commands.Cog):
                 loss = datageneral['stats']['general']['losses']
                 wl = datageneral['stats']['general']['wl']
                 headshots = datageneral['stats']['general']['headshots']
-                hdpct = round(headshots/kills, 4) * 100
+                hdpct = round(headshots/kills * 100, 3)
                 assist = datageneral['stats']['general']['assists']
                 blindkill = datageneral['stats']['general']['blind_kills']
                 dbno = datageneral['stats']['general']['dbnos']
