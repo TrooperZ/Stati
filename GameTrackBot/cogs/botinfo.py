@@ -32,9 +32,12 @@ class BotInfo(commands.Cog):
         memory = psutil.virtual_memory()
 
         inviteLink = "https://discord.com/api/oauth2/authorize?client_id=854781625236848640&permissions=379968&scope=bot"
+        website = "https://trooperz.github.io/Stati-Website/"
+        supportlink = "https://discord.gg/c4Bg7Bw7B4"
+        invitelink = "https://discord.com/oauth2/authorize?client_id=854781625236848640&permissions=379968&scope=bot"
 
         uptime = f"{days}d, {hours}h, {minutes}m, {seconds}s"
-        embed = discord.Embed(title="Stati | By TrooperZ", description=f"[Invite]({inviteLink}) Website Support Premium/Donate")
+        embed = discord.Embed(title="Stati | By TrooperZ", description=f"**[Invite]({inviteLink}) | [Website]({website}) | [Support]({supportlink}) | [Invite]({invitelink})**")
         embed.add_field(name="Uptime:", value=uptime, inline=True)
         embed.add_field(name="CPU", value=f"{psutil.cpu_percent(percpu=False)}%", inline=True)
         embed.add_field(name="Memory", value=f"{round(memory.used/1024**2)}/{round(memory.total/1024**2)} MiB", inline=True)

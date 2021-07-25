@@ -235,7 +235,7 @@ class CSGO(commands.Cog):
                 await menu.start()
 
     @commands.command()
-    async def csgomaps(self, ctx, user: str):
+    async def csgomaps(self, ctx, *, user: str):
         """Fetch map stats for a CS:GO user via Steam name or Steam integer ID."""
         async with aiohttp.ClientSession(headers={'TRN-Api-Key': os.getenv('TRACKER_API')}) as session:
             async with session.get(f"https://public-api.tracker.gg/v2/csgo/standard/profile/steam/{user}") as response:
