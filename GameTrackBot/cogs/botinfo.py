@@ -52,6 +52,39 @@ class BotInfo(commands.Cog):
         embed.add_field(name="Top.GG", value="[Coming soon]")
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def privacy(self, ctx):
+        """View the privacy policy"""
+        await ctx.send("""Stati Privacy Policy
+By using Stati, you agree to the following privacy policy.
+
+What information is stored?
+Your user id is stored if you link your in game profile with Discord
+Your in game names may be stored on other api services.
+Your user id is stored if you are blacklisted.
+Stati's message id and the guild id of the server where the refreshing display is posted is saved.
+When purchase Stati premium or donate, your user id is stored.
+
+Why we store the information and how we use it.
+We store this data to allow the features to work properly.
+
+Who gets this data?
+No one. This data is secured on our databases. 
+
+To view our api services privacy policies:
+https://r6stats.com/privacy-policy - Rainbow Six Siege
+https://thetrackernetwork.com/home/privacypolicy - CS:GO 
+
+Questions and Concerns.
+If you have questions and/or concerns about the data stored, please join the support server.
+
+Some of these features aren't implemented yet but are planned to.
+
+Note: We reserve the right to change this without notifying our users.
+
+This policy was last updated July 25th, 2021.""")
+
+
 
 def setup(bot):
     bot.add_cog(BotInfo(bot))
