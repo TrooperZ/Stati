@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 import os
 import aiohttp
 import asyncio
+from operator import itemgetter
 import json
 from pprint import pprint
 from reactionmenu import ButtonsMenu, ComponentsButton
@@ -25,6 +26,7 @@ class R6(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
     async def r6stats(self, ctx, user: str, platform="pc", info="default"):
         """Fetch general R6 stats for a user. Platform is pc by default (pc/xbox/ps4) and you can choose general/casual/ranked/bomb/secure/hostage for info selected"""
         if info.lower() not in ['default', 'general','casual', 'ranked', 'bomb', 'secure', 'hostage']:
@@ -49,9 +51,12 @@ class R6(commands.Cog):
             async with session.get(f"https://api2.r6stats.com/public-api/stats/{user}/{platform.lower()}/seasonal") as response:
                 datarank = await response.json()
 
+                pprint(datageneral)
+
                 try:
                     username = datageneral['username']
-                except:
+                except Exception as e:
+                    await ctx.send(e)
                     return await ctx.send("User not found. Check the name and verify that you are using the correct platform (PC is default platform)")
 
                 lvl = datageneral['progression']['level']
@@ -198,6 +203,42 @@ class R6(commands.Cog):
                 menu.add_button(next_button)
                 menu.add_button(delete_button)
                 await menu.start()
+
+    @commands.command()
+    @commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
+    async def r6operators(self, ctx, user: str, platform="pc"):
+        """Fetch general R6 stats for a user. Platform is pc by default (pc/xbox/ps4) and you can choose general/casual/ranked/bomb/secure/hostage for info selected"""
+        if platform.lower() not in ['pc', 'xbox', 'ps4']:
+            return await ctx.send("Invalid platform. Valid options are `pc/xbox/ps4`.")
+
+        elif platform.lower() == 'pc':
+            emojiplatform = "<:uplay:855513596108210176>"
+
+        elif platform.lower() == "xbox":
+            emojiplatform = "<:xbox:855513924035805246>"
+
+        elif platform.lower() == "ps4":
+            emojiplatform = "<:psn:855513595856814100>"
+
+        async with aiohttp.ClientSession(headers={'Authorization': os.getenv('R6STATS_API')}) as session:
+            async with session.get(f"https://api2.r6stats.com/public-api/stats/{user}/{platform.lower()}/operators") as response:
+                dataops = await response.json()
+                pprint(dataops)
+
+                dataops_sort = sorted(dataops['operators'], key=itemgetter('kills'), reverse=True) 
+
+                pprint(dataops_sort)
+
+            async with session.get(f"https://api2.r6stats.com/public-api/stats/{user}/{platform.lower()}/weapons") as response:
+                dataweapons = await response.json()
+                pprint(dataweapons)
+
+                try:
+                    username = dataops['username']
+                except:
+                    return await ctx.send("User not found. Check the name and verify that you are using the correct platform (PC is default platform)")
+
+
 
 
 def setup(bot):

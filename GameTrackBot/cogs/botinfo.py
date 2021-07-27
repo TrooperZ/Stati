@@ -48,8 +48,8 @@ class BotInfo(commands.Cog):
     @commands.command()
     async def vote(self, ctx):
         """Vote for Stati!"""
-        embed = discord.Embed(title="Vote!", description="Vote on these sites")
-        embed.add_field(name="Top.GG", value="[Coming soon]")
+        topgg = "https://top.gg/bot/854781625236848640/vote"
+        embed = discord.Embed(title="Vote!", description=f"[top.gg]({topgg})")
         await ctx.send(embed=embed)
 
     @commands.command()

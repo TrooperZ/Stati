@@ -25,6 +25,7 @@ class CSGO(commands.Cog):
         self.bot = bot
 
     @commands.command()
+    @commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
     async def csgostats(self, ctx, *, user: str):
         """Fetch general stats for a CS:GO user via Steam name or Steam integer ID."""
         urllib.parse.quote(user)
@@ -89,6 +90,7 @@ class CSGO(commands.Cog):
                 await ctx.send(embed=embed)
 
     @commands.command()
+    @commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
     async def csgoguns(self, ctx, user: str, category="all"):
         """Fetch detailed gun statistics for a CS:GO user via Steam name or Steam integer ID. Specific categories include: all/pistol/rifle/smg/heavy. 
         The API puts USP-S/P2000, MP7/MP5SD, M4A4/M4A1-S, Desert Eagle/R8 Revolver, TEC-9/CZ75 Auto, and Five Seven/CZ75 Auto stats together."""
@@ -235,6 +237,7 @@ class CSGO(commands.Cog):
                 await menu.start()
 
     @commands.command()
+    @commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
     async def csgomaps(self, ctx, *, user: str):
         """Fetch map stats for a CS:GO user via Steam name or Steam integer ID."""
         async with aiohttp.ClientSession(headers={'TRN-Api-Key': os.getenv('TRACKER_API')}) as session:
@@ -283,6 +286,7 @@ class CSGO(commands.Cog):
                 await menu.start()
 
     @commands.command()
+    @commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
     async def csgorecoil(self, ctx, gun, type="recoil", mode="regular"):
         if type.lower() not in ["recoil", "control"]:
             return await ctx.send("Invalid type. Valid options are `recoil/control`.")
@@ -302,19 +306,24 @@ class CSGO(commands.Cog):
         elif gun.lower() in ["glock", "glock18", "glock-18"]:
             gun = "glock"
 
+        elif gun.lower() in ["ump", "ump45", "ump-45"]:
+            gun = "ump45"
+
         gunrecoil_dict = {
             "ak47": "https://cdn.discordapp.com/attachments/863461817631244288/863462292863451136/ak47-spray.gif",
             "m4a4": "https://cdn.discordapp.com/attachments/863461817631244288/863463180407537664/m4a4-spray.gif",
             "m4a1": "https://cdn.discordapp.com/attachments/863461817631244288/863807608921784320/M4A1-S_spray.gif",
             "galil": "https://cdn.discordapp.com/attachments/863461817631244288/863810779597373470/galil_spray.gif",
-            "glock": "https://cdn.discordapp.com/attachments/863461817631244288/863811122049056768/Glock-18-Spray-Pattern.gif"}
+            "glock": "https://cdn.discordapp.com/attachments/863461817631244288/863811122049056768/Glock-18-Spray-Pattern.gif",
+            "ump45": "https://cdn.discordapp.com/attachments/863461817631244288/869605710219083776/UMP-45-Spray-Pattern.gif"}
 
         guncompensate_dict = {
             "ak47": "https://cdn.discordapp.com/attachments/863461817631244288/863463146697654322/ak47-compensate.gif",
             "m4a4": "https://cdn.discordapp.com/attachments/863461817631244288/863463299668508702/m4a4-compensate.gif",
             "m4a1": "https://cdn.discordapp.com/attachments/863461817631244288/863807970302754826/m4a1s_comp.gif",
             "galil": "https://cdn.discordapp.com/attachments/863461817631244288/863810805623029790/galil_compensate.gif",
-            "glock": "https://cdn.discordapp.com/attachments/863461817631244288/863811143717093376/Glock-18-Recoil-Compensation.gif"}
+            "glock": "https://cdn.discordapp.com/attachments/863461817631244288/863811143717093376/Glock-18-Recoil-Compensation.gif",
+            "ump45": "https://cdn.discordapp.com/attachments/863461817631244288/869605737456894052/UMP-45-Recoil-Compensation.gif"}
 
         if type.lower() == "recoil":
             embed = discord.Embed(title="<:csgo:857649117068918795> Counter Strike Global Offensive", description=f"{gun.upper()} {type}", color=0xde9b35)
