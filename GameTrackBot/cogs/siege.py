@@ -26,7 +26,7 @@ class R6(commands.Cog):
         self.bot = bot
 
     @commands.command()
-    @commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
+    @commands.cooldown(rate=5, per=15, type=commands.BucketType.user)
     async def r6stats(self, ctx, user: str, platform="pc", info="default"):
         """Fetch general R6 stats for a user. Platform is pc by default (pc/xbox/ps4) and you can choose general/casual/ranked/bomb/secure/hostage for info selected"""
         if info.lower() not in ['default', 'general','casual', 'ranked', 'bomb', 'secure', 'hostage']:
@@ -204,7 +204,7 @@ class R6(commands.Cog):
                 await menu.start()
 
     @commands.command()
-    @commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
+    @commands.cooldown(rate=5, per=15, type=commands.BucketType.user)
     async def r6operators(self, ctx, user: str, platform="pc", operator="default"):
         """Fetch general R6 stats for a user. Platform is pc by default (pc/xbox/ps4) and you can choose general/casual/ranked/bomb/secure/hostage for info selected"""
         if platform.lower() not in ['pc', 'xbox', 'ps4']:
