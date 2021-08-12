@@ -288,6 +288,7 @@ class CSGO(commands.Cog):
     @commands.command()
     @commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
     async def csgorecoil(self, ctx, gun, type="recoil", mode="regular"):
+        """Displays a recoil pattern of a selected gun. Add `control` after the gun to display control pattern and add `regular/control scoped` to view scoped in pattern"""
         if type.lower() not in ["recoil", "control"]:
             return await ctx.send("Invalid type. Valid options are `recoil/control`.")
 
@@ -309,13 +310,19 @@ class CSGO(commands.Cog):
         elif gun.lower() in ["ump", "ump45", "ump-45"]:
             gun = "ump45"
 
+        elif gun.lower() in ["usp", "usps", "usp-s"]:
+            gun = "usp"
+
         gunrecoil_dict = {
             "ak47": "https://cdn.discordapp.com/attachments/863461817631244288/863462292863451136/ak47-spray.gif",
             "m4a4": "https://cdn.discordapp.com/attachments/863461817631244288/863463180407537664/m4a4-spray.gif",
             "m4a1": "https://cdn.discordapp.com/attachments/863461817631244288/863807608921784320/M4A1-S_spray.gif",
             "galil": "https://cdn.discordapp.com/attachments/863461817631244288/863810779597373470/galil_spray.gif",
             "glock": "https://cdn.discordapp.com/attachments/863461817631244288/863811122049056768/Glock-18-Spray-Pattern.gif",
-            "ump45": "https://cdn.discordapp.com/attachments/863461817631244288/869605710219083776/UMP-45-Spray-Pattern.gif"}
+            "ump45": "https://cdn.discordapp.com/attachments/863461817631244288/869605710219083776/UMP-45-Spray-Pattern.gif",
+            "p90": "https://cdn.discordapp.com/attachments/863461817631244288/869777952487932004/P90-Spray-Pattern.gif",
+            "usp": "https://cdn.discordapp.com/attachments/863461817631244288/869778175293526036/USP-S-Spray-Pattern.gif",
+            "awp": "https://cdn.discordapp.com/attachments/863461817631244288/875017044326752346/xOS0QJQ.gif"}
 
         guncompensate_dict = {
             "ak47": "https://cdn.discordapp.com/attachments/863461817631244288/863463146697654322/ak47-compensate.gif",
@@ -323,7 +330,10 @@ class CSGO(commands.Cog):
             "m4a1": "https://cdn.discordapp.com/attachments/863461817631244288/863807970302754826/m4a1s_comp.gif",
             "galil": "https://cdn.discordapp.com/attachments/863461817631244288/863810805623029790/galil_compensate.gif",
             "glock": "https://cdn.discordapp.com/attachments/863461817631244288/863811143717093376/Glock-18-Recoil-Compensation.gif",
-            "ump45": "https://cdn.discordapp.com/attachments/863461817631244288/869605737456894052/UMP-45-Recoil-Compensation.gif"}
+            "ump45": "https://cdn.discordapp.com/attachments/863461817631244288/869605737456894052/UMP-45-Recoil-Compensation.gif",
+            "p90": "https://cdn.discordapp.com/attachments/863461817631244288/869777977108463676/P90-Recoil-Compensation.gif",
+            "usp": "https://cdn.discordapp.com/attachments/863461817631244288/869778196718039070/USP-S-Recoil-Compensation.gif",
+            "awp": "https://cdn.discordapp.com/attachments/863461817631244288/875017060382564392/H10Mzp9.gif"}
 
         if type.lower() == "recoil":
             embed = discord.Embed(title="<:csgo:857649117068918795> Counter Strike Global Offensive", description=f"{gun.upper()} {type}", color=0xde9b35)

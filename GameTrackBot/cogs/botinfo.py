@@ -49,7 +49,13 @@ class BotInfo(commands.Cog):
     async def vote(self, ctx):
         """Vote for Stati!"""
         topgg = "https://top.gg/bot/854781625236848640/vote"
-        embed = discord.Embed(title="Vote!", description=f"[top.gg]({topgg})")
+        dbotlabs = "https://bots.discordlabs.org/bot/854781625236848640"
+        dbotlist = "https://discordbotlist.com/bots/stati/upvote"
+        extremelist = "https://discordextremelist.xyz/en-US/bots/854781625236848640"
+        motiondev = "https://www.motiondevelopment.top/bots/854781625236848640/vote"
+        discordboats = "https://discord.boats/bot/854781625236848640/vote"
+
+        embed = discord.Embed(title="Vote!", description=f"[top.gg]({topgg})\n[Discord Bot Labs]({dbotlabs})\n[Discord Bot List]({dbotlist})\n[Discord Extreme List]({extremelist})\n[Motion Development]({motiondev})\n[Discord Boats]({discordboats})")
         await ctx.send(embed=embed)
 
     @commands.command()

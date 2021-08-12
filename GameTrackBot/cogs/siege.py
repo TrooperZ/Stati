@@ -55,8 +55,7 @@ class R6(commands.Cog):
 
                 try:
                     username = datageneral['username']
-                except Exception as e:
-                    await ctx.send(e)
+                except:
                     return await ctx.send("User not found. Check the name and verify that you are using the correct platform (PC is default platform)")
 
                 lvl = datageneral['progression']['level']
@@ -206,7 +205,7 @@ class R6(commands.Cog):
 
     @commands.command()
     @commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
-    async def r6operators(self, ctx, user: str, platform="pc"):
+    async def r6operators(self, ctx, user: str, platform="pc", operator="default"):
         """Fetch general R6 stats for a user. Platform is pc by default (pc/xbox/ps4) and you can choose general/casual/ranked/bomb/secure/hostage for info selected"""
         if platform.lower() not in ['pc', 'xbox', 'ps4']:
             return await ctx.send("Invalid platform. Valid options are `pc/xbox/ps4`.")
@@ -223,20 +222,62 @@ class R6(commands.Cog):
         async with aiohttp.ClientSession(headers={'Authorization': os.getenv('R6STATS_API')}) as session:
             async with session.get(f"https://api2.r6stats.com/public-api/stats/{user}/{platform.lower()}/operators") as response:
                 dataops = await response.json()
-                pprint(dataops)
-
-                dataops_sort = sorted(dataops['operators'], key=itemgetter('kills'), reverse=True) 
-
-                pprint(dataops_sort)
-
-            async with session.get(f"https://api2.r6stats.com/public-api/stats/{user}/{platform.lower()}/weapons") as response:
-                dataweapons = await response.json()
-                pprint(dataweapons)
 
                 try:
                     username = dataops['username']
                 except:
                     return await ctx.send("User not found. Check the name and verify that you are using the correct platform (PC is default platform)")
+
+                dataops_sort = sorted(dataops['operators'], key=itemgetter('kills'), reverse=True) 
+
+                pprint(dataops_sort)
+
+                embed1 = discord.Embed(title=f"{emojiplatform} {username} | <:r6logo:855511007450365962> Rainbow Six Siege", description=f"**Operators [Attack 1/2]**\nFor detailed info, add the operator name to the end of the command.", color=0xbababa)
+                embed2 = discord.Embed(title=f"{emojiplatform} {username} | <:r6logo:855511007450365962> Rainbow Six Siege", description=f"**Operators [Attack 2/2]**\nFor detailed info, add the operator name to the end of the command.", color=0xbababa)
+                embed3 = discord.Embed(title=f"{emojiplatform} {username} | <:r6logo:855511007450365962> Rainbow Six Siege", description=f"**Operators [Defense 1/2]**\nFor detailed info, add the operator name to the end of the command.", color=0xbababa)
+                embed4 = discord.Embed(title=f"{emojiplatform} {username} | <:r6logo:855511007450365962> Rainbow Six Siege", description=f"**Operators [Defense 2/2]**\nFor detailed info, add the operator name to the end of the command.", color=0xbababa)
+
+                n = 0
+                x = 0
+
+                for i in dataops_sort:
+                    time = round((i['experience'] / 3600), 1)
+                    
+                    if i['role'] == "Attacker":
+                        if n < 16:
+                            embed1.add_field(name=f"{i['name']}", value=f"{time}h | {i['kills']} Kills ({round(i['kd'], 2)} KD) | {i['wins']} ({round(i['wl'], 2)} WL)")
+                            n+=1
+                        elif n > 15 and n < 31:
+                            embed2.add_field(name=f"{i['name']}", value=f"{time}h | {i['kills']} Kills ({round(i['kd'], 2)} KD) | {i['wins']} ({round(i['wl'], 2)} WL)")
+                            n+=1
+
+                    elif i['role'] == "Defender":
+                        if x < 16:
+                            embed3.add_field(name=f"{i['name']}", value=f"{time}h | {i['kills']} Kills ({round(i['kd'], 2)} KD) | {i['wins']} Win ({round(i['wl'], 2)} WL)")
+                            x+=1
+                        elif x > 15 and x < 31:
+                            embed4.add_field(name=f"{i['name']}", value=f"{time}h | {i['kills']} Kills ({round(i['kd'], 2)} KD) | {i['wins']} Win ({round(i['wl'], 2)} WL)")
+                            x+=1
+
+                    
+
+                menu = menu = ButtonsMenu(ctx, menu_type=ButtonsMenu.TypeEmbed)
+
+                back_button = ComponentsButton(style=ComponentsButton.style.secondary, label='◀️', custom_id=ComponentsButton.ID_PREVIOUS_PAGE)
+                next_button = ComponentsButton(style=ComponentsButton.style.secondary, label='▶️', custom_id=ComponentsButton.ID_NEXT_PAGE)
+                delete_button = ComponentsButton(style=ComponentsButton.style.red, label='❌', custom_id=ComponentsButton.ID_END_SESSION)
+
+                menu.add_page(embed1)
+                menu.add_page(embed2)
+                menu.add_page(embed3)
+                menu.add_page(embed4)
+
+                menu.add_button(back_button)
+                menu.add_button(next_button)
+                menu.add_button(delete_button)
+                await menu.start()
+
+
 
 
 
