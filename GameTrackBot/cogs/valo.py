@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-# csgo.py
+# valo.py
 
-# CSGO stats for GameTrackBot.
+# Valorant stats for GameTrackBot.
 
 
 import discord
@@ -26,9 +26,18 @@ class Valorant(commands.Cog):
 
     @commands.command()
     @commands.cooldown(rate=5, per=5, type=commands.BucketType.user)
-    async def valostats(self, ctx, *, user: str):
-        """Fetch general stats for a Valorant player."""
-
+    async def valogunskin(self, ctx, *, gun: str):
+        """Fetch gun skin data for a Valorant weapon"""
+        async with aiohttp.ClientSession() as session:
+            async with session.get(f"https://valorant-api.com/v1/weapons/skins") as response:
+                data1 = await response.json()
+                for i in data1["data"]:
+                    if i["displayName"].lower() == gun.lower():
+                        embed = discord.Embed(title=i["displayName"], value="** **")
+                        embed.set_image(url=i["displayIcon"])
+                        return await ctx.send(embed=embed)
+                    else:
+                        continue
 
 
 def setup(bot):

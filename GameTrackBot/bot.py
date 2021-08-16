@@ -49,6 +49,7 @@ def display_time(seconds, granularity=2):
 if __name__ == "__main__":
     for extension in [
         "cogs.dev",
+        "cogs.valo",
         "cogs.botinfo",
         "cogs.siege",
         "cogs.csgo",
