@@ -14,7 +14,7 @@ from discord.ext import commands
 bot_launch_time = datetime.datetime.now()  # bot launch time for uptime command
 
 
-class BotInfo(commands.Cog):
+class botinfo(commands.Cog):
     """Bot information"""
 
     def __init__(self, bot):
@@ -94,4 +94,4 @@ This policy was last updated July 25th, 2021.""")
 
 
 def setup(bot):
-    bot.add_cog(BotInfo(bot))
+    bot.add_cog(botinfo(bot))

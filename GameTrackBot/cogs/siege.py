@@ -20,7 +20,7 @@ import datetime
 
 load_dotenv()
 
-class R6(commands.Cog):
+class siege(commands.Cog):
     """Rainbow Six Siege stats"""   
     def __init__(self, bot):
         self.bot = bot
@@ -283,4 +283,4 @@ class R6(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(R6(bot))
+    bot.add_cog(siege(bot))

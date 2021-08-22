@@ -19,7 +19,7 @@ import urllib.parse
 
 load_dotenv()
 
-class Valorant(commands.Cog):
+class valorant(commands.Cog):
     """Valorant Stats"""
     def __init__(self, bot):
         self.bot = bot
@@ -41,4 +41,4 @@ class Valorant(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(Valorant(bot))
+    bot.add_cog(valorant(bot))

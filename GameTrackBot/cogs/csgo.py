@@ -19,7 +19,7 @@ import urllib.parse
 
 load_dotenv()
 
-class CSGO(commands.Cog):
+class csgo(commands.Cog):
     """CS:GO Stats"""
     def __init__(self, bot):
         self.bot = bot
@@ -313,6 +313,9 @@ class CSGO(commands.Cog):
         elif gun.lower() in ["usp", "usps", "usp-s"]:
             gun = "usp"
 
+        elif gun.lower() in ["bizon", "ppbizon", "pp-bizon"]:
+            gun = "bizon"
+
         gunrecoil_dict = {
             "ak47": "https://cdn.discordapp.com/attachments/863461817631244288/863462292863451136/ak47-spray.gif",
             "m4a4": "https://cdn.discordapp.com/attachments/863461817631244288/863463180407537664/m4a4-spray.gif",
@@ -322,7 +325,11 @@ class CSGO(commands.Cog):
             "ump45": "https://cdn.discordapp.com/attachments/863461817631244288/869605710219083776/UMP-45-Spray-Pattern.gif",
             "p90": "https://cdn.discordapp.com/attachments/863461817631244288/869777952487932004/P90-Spray-Pattern.gif",
             "usp": "https://cdn.discordapp.com/attachments/863461817631244288/869778175293526036/USP-S-Spray-Pattern.gif",
-            "awp": "https://cdn.discordapp.com/attachments/863461817631244288/875017044326752346/xOS0QJQ.gif"}
+            "awp": "https://cdn.discordapp.com/attachments/863461817631244288/875017044326752346/xOS0QJQ.gif",
+            "negev": "https://cdn.discordapp.com/attachments/863461817631244288/879069092290654228/Negev-Spray-Pattern.gif",
+            "p2000": "https://cdn.discordapp.com/attachments/863461817631244288/879069353490919485/P2000-Spray-Pattern.gif",
+            "m249": "https://cdn.discordapp.com/attachments/863461817631244288/879069517681139722/M249-Spray-Pattern.gif",
+            "bizon": "https://cdn.discordapp.com/attachments/863461817631244288/879069556331675738/Bizon-Spray-Pattern.gif"}
 
         guncompensate_dict = {
             "ak47": "https://cdn.discordapp.com/attachments/863461817631244288/863463146697654322/ak47-compensate.gif",
@@ -333,7 +340,11 @@ class CSGO(commands.Cog):
             "ump45": "https://cdn.discordapp.com/attachments/863461817631244288/869605737456894052/UMP-45-Recoil-Compensation.gif",
             "p90": "https://cdn.discordapp.com/attachments/863461817631244288/869777977108463676/P90-Recoil-Compensation.gif",
             "usp": "https://cdn.discordapp.com/attachments/863461817631244288/869778196718039070/USP-S-Recoil-Compensation.gif",
-            "awp": "https://cdn.discordapp.com/attachments/863461817631244288/875017060382564392/H10Mzp9.gif"}
+            "awp": "https://cdn.discordapp.com/attachments/863461817631244288/875017060382564392/H10Mzp9.gif",
+            "negev": "https://cdn.discordapp.com/attachments/863461817631244288/879069074821365850/Negev-Recoil-Compensation.gif",
+            "p2000": "https://cdn.discordapp.com/attachments/863461817631244288/879069274205986906/P2000-Recoil-Compensation.gif",
+            "m249": "https://cdn.discordapp.com/attachments/863461817631244288/879069495837196318/M249-Recoil-Compensation.gif",
+            "bizon": "https://cdn.discordapp.com/attachments/863461817631244288/879069540833697832/Bizon-Recoil-Compensation.gif"}
 
         if type.lower() == "recoil":
             embed = discord.Embed(title="<:csgo:857649117068918795> Counter Strike Global Offensive", description=f"{gun.upper()} {type}", color=0xde9b35)
@@ -348,4 +359,4 @@ class CSGO(commands.Cog):
 
 
 def setup(bot):
-    bot.add_cog(CSGO(bot))
+    bot.add_cog(csgo(bot))
